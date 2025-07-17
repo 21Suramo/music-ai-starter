@@ -1,27 +1,56 @@
+// tsconfig.json
 {
   "compilerOptions": {
+    // BASE URL pour vos imports absolus (alias relatifs à la racine du projet) :contentReference[oaicite:0]{index=0}
+    "baseUrl": ".",
+    // Alias d’import : "@/..." → "src/..." :contentReference[oaicite:1]{index=1} :contentReference[oaicite:2]{index=2}
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    // Cible ES moderne, lib DOM + features ESNext :contentReference[oaicite:3]{index=3}
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    // Permet l’import de fichiers JavaScript :contentReference[oaicite:4]{index=4}
     "allowJs": true,
+    // Ignore les types dans node_modules pour accélérer la compilation :contentReference[oaicite:5]{index=5}
     "skipLibCheck": true,
+    // Strict TypeScript (inclut strictNullChecks, etc.) :contentReference[oaicite:6]{index=6}
     "strict": true,
+    // Pas d’émission de code JS (Next.js gère la transpilation) :contentReference[oaicite:7]{index=7}
     "noEmit": true,
-    "esModuleInterop": true,
+    // Support des modules ESNext :contentReference[oaicite:8]{index=8}
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node", // pour une résolution Node.js classique :contentReference[oaicite:9]{index=9}
+    // Autorise l’import de .json comme modules (TypeScript 2.9+) :contentReference[oaicite:10]{index=10} :contentReference[oaicite:11]{index=11}
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    // Garde la syntaxe JSX pour Next.js :contentReference[oaicite:12]{index=12}
     "jsx": "preserve",
+    // Interopérabilité CommonJS <→ ESModule :contentReference[oaicite:13]{index=13}
+    "esModuleInterop": true,
+    // Source maps incrémentales pour TS Server :contentReference[oaicite:14]{index=14}
     "incremental": true,
+    "isolatedModules": true,
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  // Inclut tous les fichiers TS/TSX et types générés par Next.js :contentReference[oaicite:15]{index=15}
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  // Exclut node_modules :contentReference[oaicite:16]{index=16}
+  "exclude": [
+    "node_modules"
+  ]
 }

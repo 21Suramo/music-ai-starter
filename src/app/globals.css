@@ -1,26 +1,71 @@
-@import "tailwindcss";
+/* /app/globals.css – Thème Tailwind v4 CSS‑first */
 
+/* 1. Import CSS‑First Tailwind + animations */
+/* Un seul import suffit, v4 se passe des directives @tailwind */
+@import "tailwindcss"; /* :contentReference[oaicite:1]{index=1} */
+@import "tw-animate-css";
+
+/* 2. Variant gris pour dark mode */
+@custom-variant dark (&:is(.dark *));
+
+/* 3. Déclaration des variables thème */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.625rem;
+  --bg: #ffffff;
+  --fg: #1e293b;
+  --primary: #4682b4;
+  --secondary: #708090;
+  --border: #e2e8f0;
+  --input: #f8fafc;
+  --ring: #cbd5e1;
+  --muted: #64748b;
+}
+.dark {
+  --bg: #0f172a;
+  --fg: #f1f5f9;
+  --primary: #63a0dc;
+  --secondary: #94a3b8;
+  --border: #334155;
+  --input: #1e293b;
+  --ring: #475569;
+  --muted: #94a3b8;
 }
 
+/* 4. Exposer les variables dans les utilitaires Tailwind */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-muted: var(--muted);
+  --radius-lg: var(--radius);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* 5. Styles de base */
+@layer base {
+  html {
+    font-family: var(--font-geist-sans), sans-serif;
+    scroll-behavior: smooth;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground antialiased
+           transition-colors duration-200 ease-in-out;
+  }
+  a {
+    @apply text-primary hover:text-primary/80 transition-colors;
+  }
+  button {
+    @apply bg-primary text-primary hover:bg-primary/90
+           focus:ring-2 focus:ring-offset-2 focus:ring-primary
+           rounded-md transition-all;
+  }
+  input,
+  textarea,
+  select {
+    @apply bg-input text-foreground border px-3 py-2 rounded-md
+           focus:ring-2 focus:ring-ring focus:outline-none transition-all;
+  }
 }
